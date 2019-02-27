@@ -1,5 +1,6 @@
 package com.lattisi.euclide.items;
 
+import java.util.Arrays;
 import java.util.Collection;
 
 public class Point extends AbstractItem implements Item {
@@ -13,7 +14,7 @@ public class Point extends AbstractItem implements Item {
     }
 
     public Collection<String> aliases() {
-        return null;
+        return Arrays.asList(name);
     }
 
 }

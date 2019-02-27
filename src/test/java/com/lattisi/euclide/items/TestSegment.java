@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -29,6 +30,15 @@ public class TestSegment {
         List<String> pointNames = points.stream().map(point -> point.name()).collect(Collectors.toList());
         Assertions.assertTrue(pointNames.contains("A"));
         Assertions.assertTrue(pointNames.contains("B"));
+    }
+
+    @Test
+    public void testSegmentNameAlias() {
+        Segment CD = segmentFactory.build("CD");
+        Collection<String> aliases = CD.aliases();
+        Assertions.assertEquals(2, aliases.size());
+        Assertions.assertTrue(aliases.contains("CD"));
+        Assertions.assertTrue(aliases.contains("DC"));
     }
 
 

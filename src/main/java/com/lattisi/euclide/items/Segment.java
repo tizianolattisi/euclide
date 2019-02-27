@@ -1,9 +1,9 @@
 package com.lattisi.euclide.items;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class Segment extends AbstractItem implements Item {
 
@@ -18,10 +18,6 @@ public class Segment extends AbstractItem implements Item {
         return ItemType.SEGMENT;
     }
 
-    public Collection<String> aliases() {
-        return null;
-    }
-
     public void setPoints(Point startPoint, Point endPoint) {
         this.startPoint = startPoint;
         this.endPoint = endPoint;
@@ -32,6 +28,10 @@ public class Segment extends AbstractItem implements Item {
         points.add(startPoint);
         points.add(endPoint);
         return points;
+    }
+
+    public Collection<String> aliases() {
+        return Arrays.asList(startPoint.name()+endPoint.name(), endPoint.name()+startPoint.name());
     }
 
 }
