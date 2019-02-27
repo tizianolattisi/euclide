@@ -26,8 +26,8 @@ public class TestSegment {
     }
 
     private void testTheNameOfThePoints(Segment AB) {
-        Set<Point> points = AB.points();
-        List<String> pointNames = points.stream().map(point -> point.name()).collect(Collectors.toList());
+        Set<Point> startingAndEndingPoints = AB.points();
+        List<String> pointNames = startingAndEndingPoints.stream().map(point -> point.name()).collect(Collectors.toList());
         Assertions.assertTrue(pointNames.contains("A"));
         Assertions.assertTrue(pointNames.contains("B"));
     }
