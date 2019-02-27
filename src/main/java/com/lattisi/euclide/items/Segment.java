@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Segment extends AbstractItem implements Item {
+public class Segment extends AbstractMeasurableItem implements Measurables {
 
     private Point startPoint;
     private Point endPoint;

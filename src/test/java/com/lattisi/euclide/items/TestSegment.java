@@ -41,5 +41,14 @@ public class TestSegment {
         Assertions.assertTrue(aliases.contains("DC"));
     }
 
+    @Test
+    public void testMeasurableSegment() {
+        Segment EF = segmentFactory.build("EF");
+        Assertions.assertFalse(EF.measure().isPresent());
+        EF.assignMeasure("l");
+        Assertions.assertTrue(EF.measure().isPresent());
+        Assertions.assertEquals("l", EF.measure().get());
+    }
+
 
 }
