@@ -6,6 +6,6 @@ public interface Measurables extends Item {
 
     Optional<String> measure();
     void assignMeasure(String measure);
-    Boolean isCongruentTo(Measurables item);
+    Boolean isCongruentTo(Measurables item) throws ItemWithoutMeasureException;
 
 }

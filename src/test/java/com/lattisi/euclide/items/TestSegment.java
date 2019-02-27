@@ -50,5 +50,34 @@ public class TestSegment {
         Assertions.assertEquals("l", EF.measure().get());
     }
 
+    @Test
+    public void testItemWithoutException() {
+        Segment GH = segmentFactory.build("GH");
+        Segment IL = segmentFactory.build("IL");
+        GH.assignMeasure("l");
+        ItemWithoutMeasureException exception = Assertions.assertThrows(ItemWithoutMeasureException.class, () -> GH.isCongruentTo(IL));
+        Assertions.assertEquals("Unable to compare items without measure.", exception.getMessage());
+    }
+
+    @Test
+    public void testCongruentSegments() throws ItemWithoutMeasureException {
+        Segment MN = segmentFactory.build("MN");
+        Segment OP = segmentFactory.build("OP");
+        MN.assignMeasure("l");
+        OP.assignMeasure("l");
+        Assertions.assertTrue(MN.isCongruentTo(OP));
+        Assertions.assertTrue(OP.isCongruentTo(MN));
+    }
+
+    @Test
+    public void testIncongruentSegments() throws ItemWithoutMeasureException {
+        Segment QR = segmentFactory.build("QR");
+        Segment ST = segmentFactory.build("ST");
+        QR.assignMeasure("l1");
+        ST.assignMeasure("l2");
+        Assertions.assertFalse(QR.isCongruentTo(ST));
+        Assertions.assertFalse(ST.isCongruentTo(QR));
+    }
+
 
 }

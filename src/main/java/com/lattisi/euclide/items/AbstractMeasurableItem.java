@@ -21,7 +21,14 @@ public abstract class AbstractMeasurableItem extends AbstractItem implements Mea
     }
 
     @Override
-    public Boolean isCongruentTo(Measurables item) {
-        return null;
+    public Boolean isCongruentTo(Measurables otherMeasurableItem) throws ItemWithoutMeasureException{
+        if (anItemWithoutMeasure(otherMeasurableItem)) {
+            throw new ItemWithoutMeasureException("Unable to compare items without measure.");
+        }
+        return this.measure.get().equals(otherMeasurableItem.measure().get());
+    }
+
+    private boolean anItemWithoutMeasure(Measurables otherMeasurableItem) {
+        return !this.measure.isPresent() || !otherMeasurableItem.measure().isPresent();
     }
 }
