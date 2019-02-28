@@ -2,7 +2,7 @@ package com.lattisi.euclide.items;
 
 import java.util.*;
 
-public class Segment extends AbstractMeasurableItem implements Measurables {
+public class Segment extends AbstractMeasurableItem implements Measurable {
 
     private Point startPoint;
     private Point endPoint;

@@ -2,7 +2,7 @@ package com.lattisi.euclide.items;
 
 import java.util.Optional;
 
-public abstract class AbstractMeasurableItem extends AbstractItem implements Measurables {
+public abstract class AbstractMeasurableItem extends AbstractItem implements Measurable {
 
     private Optional<String> measure = Optional.empty();
 
@@ -21,14 +21,14 @@ public abstract class AbstractMeasurableItem extends AbstractItem implements Mea
     }
 
     @Override
-    public Boolean isCongruentTo(Measurables otherMeasurableItem) throws ItemWithoutMeasureException{
+    public Boolean isCongruentTo(Measurable otherMeasurableItem) throws ItemWithoutMeasureException{
         if (anItemWithoutMeasure(otherMeasurableItem)) {
             throw new ItemWithoutMeasureException("Unable to compare items without measure.");
         }
         return this.measure.get().equals(otherMeasurableItem.measure().get());
     }
 
-    private boolean anItemWithoutMeasure(Measurables otherMeasurableItem) {
+    private boolean anItemWithoutMeasure(Measurable otherMeasurableItem) {
         return !this.measure.isPresent() || !otherMeasurableItem.measure().isPresent();
     }
 }
