@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -79,5 +80,21 @@ public class TestSegment {
         Assertions.assertFalse(ST.isCongruentTo(QR));
     }
 
+    @Test
+    public void testSegmentsIntersectionPresent() {
+        Segment AB = segmentFactory.build("AB");
+        Segment BC = segmentFactory.build("BC");
+        Optional<Point> intersection = AB.intersection(BC);
+        Assertions.assertTrue(intersection.isPresent());
+        Assertions.assertEquals("B", intersection.get().name());
+    }
+
+    @Test
+    public void testSegmentsIntersectionNotPresent() {
+        Segment AB = segmentFactory.build("AB");
+        Segment CD = segmentFactory.build("CD");
+        Optional<Point> intersection = AB.intersection(CD);
+        Assertions.assertFalse(intersection.isPresent());
+    }
 
 }

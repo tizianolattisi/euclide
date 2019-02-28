@@ -1,9 +1,6 @@
 package com.lattisi.euclide.items;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Segment extends AbstractMeasurableItem implements Measurables {
 
@@ -32,6 +29,15 @@ public class Segment extends AbstractMeasurableItem implements Measurables {
 
     public Collection<String> aliases() {
         return Arrays.asList(startPoint.name()+endPoint.name(), endPoint.name()+startPoint.name());
+    }
+
+    public Optional<Point> intersection(Segment segment) {
+        Set<Point> pointOfThisSegment = points();
+        pointOfThisSegment.retainAll(segment.points());
+        if (pointOfThisSegment.size()==1) {
+            return Optional.of(pointOfThisSegment.iterator().next());
+        }
+        return Optional.empty();
     }
 
 }
