@@ -40,4 +40,10 @@ public class Segment extends AbstractMeasurableItem implements Measurables {
         return Optional.empty();
     }
 
+    public Point otherPoint(Point thePointWeDontWont) {
+        Optional<Point> thePointWeWant = points().stream().filter(point -> !point.equals(thePointWeDontWont)).findFirst();
+        assert thePointWeWant.isPresent();
+        return thePointWeWant.get();
+    }
+
 }
