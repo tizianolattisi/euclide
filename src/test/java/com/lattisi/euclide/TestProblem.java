@@ -25,7 +25,7 @@ public class TestProblem {
     }
 
     @Test
-    private void testRefresh() {
+    private void testAngleCreationByRefresh() {
         problem.addSegment("AB", "l");
         problem.addPoint("BC");
         Optional<Item> itemNotPresent = problem.findItemByName("abc");
