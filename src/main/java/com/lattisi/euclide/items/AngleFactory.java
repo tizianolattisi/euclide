@@ -8,7 +8,8 @@ public class AngleFactory implements ItemFactory<Angle> {
 
     @Override
     public Angle build(String name) {
-        return null;
+        Angle angle = new Angle(name);
+        return angle;
     }
 
     public Angle build(Point startPoint, Point centralPoint, Point endPoint) {

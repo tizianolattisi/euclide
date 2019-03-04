@@ -20,7 +20,7 @@ public class TestSegment {
     }
 
     @Test
-    public void testSegmentCreation() {
+    public void testSegmentCreationFromName() {
         Segment AB = segmentFactory.build("AB");
         Assertions.assertEquals("AB", AB.name());
         testTheNameOfThePoints(AB);
