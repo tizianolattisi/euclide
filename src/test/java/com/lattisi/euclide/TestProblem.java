@@ -1,6 +1,8 @@
-package com.lattisi.euclide.items;
+package com.lattisi.euclide;
 
 import com.lattisi.euclide.Problem;
+import com.lattisi.euclide.items.Item;
+import com.lattisi.euclide.items.ItemType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
