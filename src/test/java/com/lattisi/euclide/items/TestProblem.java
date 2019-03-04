@@ -25,7 +25,7 @@ public class TestProblem {
     }
 
     @Test
-    public void testAngleCreationByRefresh() {
+    public void testAngleDiscoverByRefresh() {
         problem.addSegment("AB", "l");
         problem.addSegment("BC");
         Optional<Item> itemNotPresent = problem.findItemByName("abc");
@@ -40,6 +40,7 @@ public class TestProblem {
     public void testTriangleCreation() {
         Triangle ABC = problem.addTriangle("ABC");
         Collection<Item> items = problem.items();
+        problem.refresh();
         for (Item item: items) {
             System.out.println(item);
         }

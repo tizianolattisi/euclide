@@ -43,6 +43,10 @@ public class Problem {
     }
 
     public void refresh() {
+        discoverAnglesFromSegments();
+    }
+
+    private void discoverAnglesFromSegments() {
         List<Segment> segments = items.stream().filter(item -> item.type().equals(ItemType.SEGMENT)).map(item -> (Segment) item).collect(Collectors.toList());
         for( Integer i=0; i<segments.size()-1; i++ ) {
             for (Integer j = i + 1; j < segments.size(); j++) {
