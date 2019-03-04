@@ -13,26 +13,33 @@ public class Problem {
     private final PointFactory pointFactory = new PointFactory();
     private final SegmentFactory segmentFactory = new SegmentFactory();
     private final AngleFactory angleFactory = new AngleFactory();
+    private final TriangleFactory triangleFactory = new TriangleFactory();
 
     private Collection<Item> items = new HashSet<>();
 
-    public void addPoint(String name) {
-        items.add(pointFactory.build(name));
+    public Segment addSegment(String name) {
+        Segment segment = segmentFactory.build(name);
+        items.add(segment);
+        return segment;
     }
 
-    public void addSegment(String name, String measure) {
+    public Segment addSegment(String name, String measure) {
         Segment segment = segmentFactory.build(name);
         segment.assignMeasure(measure);
         items.add(segment);
+        return segment;
     }
 
-    public void addAngle(Segment firstSegment, Segment secondSegment) {
+    public Angle addAngle(Segment firstSegment, Segment secondSegment) {
         Angle angle = angleFactory.build(firstSegment, secondSegment);
         items.add(angle);
+        return angle;
     }
 
-    public void addSegment(String name) {
-        items.add(segmentFactory.build(name));
+    public Triangle addTriangle(String name) {
+        Triangle triangle = triangleFactory.build(name);
+        items.add(triangle);
+        return triangle;
     }
 
     public void refresh() {
@@ -51,4 +58,7 @@ public class Problem {
         return items.stream().filter(item -> item.name().equals(name)).findAny();
     }
 
+    public Collection<Item> items() {
+        return items;
+    }
 }
