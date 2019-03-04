@@ -2,10 +2,9 @@ package com.lattisi.euclide.items;
 
 import java.util.*;
 
-public class Segment extends AbstractMeasurableItem implements Measurable {
+public class Segment extends AbstractMeasurableItem implements Measurable, Container {
 
-    private Point startPoint;
-    private Point endPoint;
+    private Collection<Point> points  = new ArrayList<>();
 
     public Segment(String name) {
         super(name);
@@ -15,25 +14,22 @@ public class Segment extends AbstractMeasurableItem implements Measurable {
         return ItemType.SEGMENT;
     }
 
-    public void setPoints(Point startPoint, Point endPoint) {
-        this.startPoint = startPoint;
-        this.endPoint = endPoint;
-    }
-
-    public Set<Point> points() {
-        HashSet<Point> points = new HashSet<>();
-        points.add(startPoint);
-        points.add(endPoint);
-        return points;
+    public void addPoint(Point point) {
+        this.points.add(point);
     }
 
     public Collection<String> aliases() {
-        return Arrays.asList(startPoint.name()+endPoint.name(), endPoint.name()+startPoint.name());
+        String firstPointName = name().substring(0, 1);
+        String secondPointName = name().substring(1);
+        return Arrays.asList(firstPointName+secondPointName, secondPointName+firstPointName);
     }
 
     public Optional<Point> intersection(Segment segment) {
-        Set<Point> pointOfThisSegment = points();
-        pointOfThisSegment.retainAll(segment.points());
+        HashSet<Point> pointOfThisSegment = new HashSet<>();
+        children().stream()
+                .map(point -> (Point) point)
+                .forEach(point -> pointOfThisSegment.add(point));
+        pointOfThisSegment.retainAll(segment.children());
         if (pointOfThisSegment.size()==1) {
             return Optional.of(pointOfThisSegment.iterator().next());
         }
@@ -41,9 +37,20 @@ public class Segment extends AbstractMeasurableItem implements Measurable {
     }
 
     public Point otherPoint(Point thePointWeDontWont) {
-        Optional<Point> thePointWeWant = points().stream().filter(point -> !point.equals(thePointWeDontWont)).findFirst();
+        Optional<Point> thePointWeWant = children().stream()
+                .map(point -> (Point) point)
+                .filter(point -> !point.equals(thePointWeDontWont)).findFirst();
         assert thePointWeWant.isPresent();
         return thePointWeWant.get();
     }
 
+    @Override
+    public Collection<? extends Item> children() {
+        return points;
+    }
+
+    @Override
+    public Boolean contains(Item item) {
+        return null;
+    }
 }

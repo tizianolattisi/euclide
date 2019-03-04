@@ -11,7 +11,8 @@ public class SegmentFactory implements ItemFactory<Segment> {
         String endPointName = name.substring(1);
         Point startPoint = pointFactory.build(startPointName);
         Point endPoint = pointFactory.build(endPointName);
-        segment.setPoints(startPoint, endPoint);
+        segment.addPoint(startPoint);
+        segment.addPoint(endPoint);
         return segment;
     }
 
