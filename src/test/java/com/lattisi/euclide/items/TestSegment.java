@@ -7,22 +7,24 @@ import org.junit.jupiter.api.Test;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class TestSegment {
 
     private static SegmentFactory segmentFactory;
+    private static PointFactory pointFactory;
 
     @BeforeEach
     public void initializeFactories() {
         segmentFactory = new SegmentFactory();
+        pointFactory = new PointFactory();
     }
 
     @Test
     public void testSegmentCreationFromName() {
         Segment AB = segmentFactory.build("AB");
         Assertions.assertEquals("AB", AB.name());
+        Assertions.assertEquals(ItemType.SEGMENT, AB.type());
         testTheNameOfThePoints(AB);
     }
 
@@ -94,6 +96,22 @@ public class TestSegment {
         Segment CD = segmentFactory.build("CD");
         Optional<Point> intersection = AB.intersection(CD);
         Assertions.assertFalse(intersection.isPresent());
+    }
+
+    @Test
+    public void testSegmentContainsPoint() {
+        Segment AB = segmentFactory.build("AB");
+        Point A = pointFactory.build("A");
+        Point B = pointFactory.build("B");
+        Assertions.assertTrue(AB.contains(A));
+        Assertions.assertTrue(AB.contains(B));
+    }
+
+    @Test
+    public void testSegmentDoesNotContainsPoint() {
+        Segment AB = segmentFactory.build("AB");
+        Point C = pointFactory.build("C");
+        Assertions.assertFalse(AB.contains(C));
     }
 
 }

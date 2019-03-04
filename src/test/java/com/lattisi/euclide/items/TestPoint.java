@@ -20,6 +20,7 @@ public class TestPoint {
     public void testPointCreation() {
         Point A = pointFactory.build("A");
         Assertions.assertEquals("A", A.name());
+        Assertions.assertEquals(ItemType.POINT, A.type());
     }
 
     @Test

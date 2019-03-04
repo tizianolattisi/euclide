@@ -21,18 +21,15 @@ public class Triangle extends AbstractMeasurableItem implements Measurable, Cont
     }
 
     @Override
-    public Collection<String> aliases() {
-        return null;
-    }
-
-    @Override
     public Collection<? extends Item> children() {
         return Stream.concat(segments.stream(), angles.stream()).collect(Collectors.toList());
     }
 
     @Override
     public Boolean contains(Item item) {
-        return children().contains(item);
+        long numOfChildrenWithItemNameAsAlias = children().stream()
+                .filter(child -> child.aliases().contains(item.name())).count();
+        return numOfChildrenWithItemNameAsAlias==1;
     }
 
     public void addSegment(Segment segment) {

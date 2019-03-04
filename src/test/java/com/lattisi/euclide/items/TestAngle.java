@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collection;
+
 public class TestAngle {
 
     private static AngleFactory angleFactory;
@@ -32,11 +34,25 @@ public class TestAngle {
         Assertions.assertEquals("abc", abc.name());
     }
 
-    @Test void testAngleFactoryFromSegments() {
+    @Test
+    public void testAngleFactoryFromSegments() {
         Segment AB = segmentFactory.build("AB");
         Segment BC = segmentFactory.build("BC");
         Angle abc = angleFactory.build(AB, BC);
         Assertions.assertEquals("abc", abc.name());
     }
+
+    @Test
+    public void testAliases() {
+        Angle abc = angleFactory.build("abc");
+        Collection<String> aliases = abc.aliases();
+        Assertions.assertTrue(aliases.contains("abc"));
+        Assertions.assertTrue(aliases.contains("acb"));
+        Assertions.assertTrue(aliases.contains("bac"));
+        Assertions.assertTrue(aliases.contains("bca"));
+        Assertions.assertTrue(aliases.contains("cab"));
+        Assertions.assertTrue(aliases.contains("cba"));
+    }
+
 
 }

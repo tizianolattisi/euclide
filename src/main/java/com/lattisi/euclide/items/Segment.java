@@ -18,12 +18,6 @@ public class Segment extends AbstractMeasurableItem implements Measurable, Conta
         this.points.add(point);
     }
 
-    public Collection<String> aliases() {
-        String firstPointName = name().substring(0, 1);
-        String secondPointName = name().substring(1);
-        return Arrays.asList(firstPointName+secondPointName, secondPointName+firstPointName);
-    }
-
     public Optional<Point> intersection(Segment segment) {
         HashSet<Point> pointOfThisSegment = new HashSet<>();
         children().stream()
@@ -51,6 +45,9 @@ public class Segment extends AbstractMeasurableItem implements Measurable, Conta
 
     @Override
     public Boolean contains(Item item) {
-        return null;
+        long numOfChildrenWithItemNameAsAlias = children().stream()
+                .filter(child -> child.aliases().contains(item.name())).count();
+        return numOfChildrenWithItemNameAsAlias==1;
     }
+
 }

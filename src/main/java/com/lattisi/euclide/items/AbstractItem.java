@@ -1,5 +1,8 @@
 package com.lattisi.euclide.items;
 
+import com.lattisi.euclide.AliasesUtility;
+
+import java.util.Collection;
 import java.util.Objects;
 
 public abstract class AbstractItem implements Item {
@@ -13,6 +16,11 @@ public abstract class AbstractItem implements Item {
     @Override
     public String name() {
         return name;
+    }
+
+    @Override
+    public Collection<String> aliases() {
+        return AliasesUtility.computeAliases(name);
     }
 
     @Override
