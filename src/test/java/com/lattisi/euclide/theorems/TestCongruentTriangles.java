@@ -34,6 +34,20 @@ public class TestCongruentTriangles {
         Assertions.assertTrue(CongruentTriangles.SideSideSide.apply(ABC, DEF));
     }
 
+    @Test
+    public void testFailSideSideSide() {
+        Triangle ABC = problem.addTriangle("ABC");
+        Triangle DEF = problem.addTriangle("DEF");
+        problem.refresh();
+        assignMeasureToSegment("AB", L1);
+        assignMeasureToSegment("BC", L2);
+        assignMeasureToSegment("CA", L3);
+        assignMeasureToSegment("DE", L3);
+        assignMeasureToSegment("EF", L2);
+        assignMeasureToSegment("DF", L2);
+        Assertions.assertFalse(CongruentTriangles.SideSideSide.apply(ABC, DEF));
+    }
+
     private void assignMeasureToSegment(String segmentName, String measure) {
         Segment AB = (Segment) problem.findItemByName(segmentName).get();
         AB.assignMeasure(measure);
