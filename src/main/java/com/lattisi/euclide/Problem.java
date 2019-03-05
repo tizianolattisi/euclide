@@ -17,16 +17,22 @@ public class Problem {
 
     private Collection<Item> items = new HashSet<>();
 
-    public Point addPoint(String name) {
-        Point point = pointFactory.build(name);
+    public Point addPoint(Point point) {
         items.add(point);
         return point;
     }
 
-    public Segment addSegment(String name) {
-        Segment segment = segmentFactory.build(name);
+    public Point addPoint(String name) {
+        return addPoint(pointFactory.build(name));
+    }
+
+    public Segment addSegment(Segment segment) {
         items.add(segment);
         return segment;
+    }
+
+    public Segment addSegment(String name) {
+        return addSegment(segmentFactory.build(name));
     }
 
     public Segment addSegment(String name, String measure) {
@@ -36,16 +42,22 @@ public class Problem {
         return segment;
     }
 
-    public Angle addAngle(Segment firstSegment, Segment secondSegment) {
-        Angle angle = angleFactory.build(firstSegment, secondSegment);
+    public Angle addAngle(Angle angle) {
         items.add(angle);
         return angle;
     }
 
-    public Triangle addTriangle(String name) {
-        Triangle triangle = triangleFactory.build(name);
+    public Angle addAngle(Segment firstSegment, Segment secondSegment) {
+        return addAngle(angleFactory.build(firstSegment, secondSegment));
+    }
+
+    public Triangle addTriangle(Triangle triangle) {
         items.add(triangle);
         return triangle;
+    }
+
+    public Triangle addTriangle(String name) {
+        return addTriangle(triangleFactory.build(name));
     }
 
     public void refresh() {
@@ -62,7 +74,7 @@ public class Problem {
                             .filter(item -> item.type().equals(ItemType.SEGMENT))
                             .forEach(segment -> {
                                 if (!findItemByName(segment.name()).isPresent()) {
-                                    addSegment(segment.name());
+                                    addSegment((Segment) segment);
                                 }
                             });
                 });
@@ -77,9 +89,10 @@ public class Problem {
         segments().stream()
                 .forEach(segment ->
                     segment.children().stream()
+                            .filter(item -> item.type().equals(ItemType.POINT))
                             .forEach(point -> {
                                 if (!findItemByName(point.name()).isPresent()) {
-                                    addPoint(point.name());
+                                    addPoint((Point) point);
                                 }
                             })
                 );
@@ -116,6 +129,13 @@ public class Problem {
                 }
             }
         }
+    }
+
+    private void assignChidrenToTriangles() {
+        triangles().stream()
+                .forEach(triangle -> {
+
+                });
     }
 
     public List<Point> points() {

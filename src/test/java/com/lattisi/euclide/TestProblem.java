@@ -1,6 +1,5 @@
 package com.lattisi.euclide;
 
-import com.lattisi.euclide.Problem;
 import com.lattisi.euclide.items.Item;
 import com.lattisi.euclide.items.ItemType;
 import org.junit.jupiter.api.Assertions;
@@ -19,7 +18,14 @@ public class TestProblem {
     }
 
     @Test
-    public void testItemsCreation() {
+    public void testPointCreation() {
+        problem.addPoint("A");
+        Optional<Item> A = problem.findItemByName("A");
+        Assertions.assertTrue(A.isPresent());
+    }
+
+    @Test
+    public void testSegmentCreation() {
         problem.addSegment("AB", "l");
         Optional<Item> ab = problem.findItemByName("AB");
         Assertions.assertTrue(ab.isPresent());

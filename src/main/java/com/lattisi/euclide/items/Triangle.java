@@ -2,6 +2,7 @@ package com.lattisi.euclide.items;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -23,6 +24,14 @@ public class Triangle extends AbstractMeasurableItem implements Measurable, Cont
     @Override
     public Collection<? extends Item> children() {
         return Stream.concat(segments.stream(), angles.stream()).collect(Collectors.toList());
+    }
+
+    public List<Segment> segments() {
+        return children().stream().filter(item -> item.type().equals(ItemType.SEGMENT)).map(item -> (Segment) item).collect(Collectors.toList());
+    }
+
+    public List<Angle> angles() {
+        return children().stream().filter(item -> item.type().equals(ItemType.ANGLE)).map(item -> (Angle) item).collect(Collectors.toList());
     }
 
     @Override
