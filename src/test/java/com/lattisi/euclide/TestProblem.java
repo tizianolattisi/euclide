@@ -1,7 +1,6 @@
 package com.lattisi.euclide;
 
-import com.lattisi.euclide.items.Item;
-import com.lattisi.euclide.items.ItemType;
+import com.lattisi.euclide.items.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,9 +26,25 @@ public class TestProblem {
     @Test
     public void testSegmentCreation() {
         problem.addSegment("AB", "l");
-        Optional<Item> ab = problem.findItemByName("AB");
-        Assertions.assertTrue(ab.isPresent());
+        Optional<Item> AB = problem.findItemByName("AB");
+        Assertions.assertTrue(AB.isPresent());
     }
+
+    @Test
+    public void testStraightLineFromSegment() {
+        problem.addSegment("AB");
+        Segment AB = (Segment) problem.findItemByName("AB").get();
+        problem.refresh();
+        Point B = (Point) problem.findItemByName("B").get();
+        Point C = problem.addPoint("C");
+        problem.extendSegmentFromPointToPoint(AB, B, C);
+        Optional<Item> optionalAb = problem.findItemByName("ab");
+        Assertions.assertTrue(optionalAb.isPresent());
+        Assertions.assertEquals(ItemType.STRAIGHT_LINE, optionalAb.get().type());
+        StraightLine ab = (StraightLine) optionalAb.get();
+        Assertions.assertTrue(ab.children().contains(C));
+    }
+
 
     @Test
     public void testAngleDiscoverByRefresh() {

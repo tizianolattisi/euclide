@@ -14,6 +14,7 @@ public class Problem {
     private final SegmentFactory segmentFactory = new SegmentFactory();
     private final AngleFactory angleFactory = new AngleFactory();
     private final TriangleFactory triangleFactory = new TriangleFactory();
+    private final StraightLineFactory straightLineFactory = new StraightLineFactory();
 
     private Collection<Item> items = new HashSet<>();
 
@@ -152,6 +153,14 @@ public class Problem {
 
     public Collection<Item> items() {
         return items;
+    }
+
+    public void extendSegmentFromPointToPoint(Segment segment, Point theNearestInnerPoint, Point theOuterPoint) {
+        Point theFurthestInnerPoint = segment.otherPoint(theNearestInnerPoint);
+        String straightLineName = theFurthestInnerPoint.name().toLowerCase() + theNearestInnerPoint.name().toLowerCase();
+        StraightLine straightLine = straightLineFactory.build(straightLineName);
+        straightLine.addOuterPointFromPoint(theOuterPoint, theNearestInnerPoint);
+        items.add(straightLine);
     }
 
 }

@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class TestStraightLine {
 
     private static StraightLineFactory straightLineFactory;
@@ -36,6 +39,34 @@ public class TestStraightLine {
         StraightLine ab = straightLineFactory.build("ab");
         Point C = pointFactory.build("C");
         Assertions.assertFalse(ab.contains(C));
+    }
+
+    @Test
+    public void testAddRightOuterPoint() {
+        StraightLine ab = straightLineFactory.build("ab");
+        Point A = new Point("A");
+        Point B = new Point("B");
+        Point C = pointFactory.build("C");
+        ab.addOuterPointFromPoint(C, B);
+        List<Point> listOfPoints = listOfOrderedPoints(ab);
+        Point lastPoint = listOfPoints.get(listOfPoints.size() - 1);
+        Assertions.assertEquals(C, lastPoint);
+    }
+
+    private List<Point> listOfOrderedPoints(StraightLine ab) {
+        return ab.children().stream().map(item -> (Point) item).collect(Collectors.toList());
+    }
+
+    @Test
+    public void testAddLeftOuterPoint() {
+        StraightLine ab = straightLineFactory.build("ab");
+        Point Z = pointFactory.build("Z");
+        Point A = new Point("A");
+        Point B = new Point("B");
+        ab.addOuterPointFromPoint(Z, A);
+        List<Point> listOfPoints = listOfOrderedPoints(ab);
+        Point firstPoint = listOfPoints.get(0);
+        Assertions.assertEquals(Z, firstPoint);
     }
 
 }

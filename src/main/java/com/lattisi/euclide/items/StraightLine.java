@@ -33,4 +33,16 @@ public class StraightLine extends AbstractItem implements Container {
         this.points.add(point);
     }
 
+    public void addOuterPointFromPoint(Point thePointToAdd, Point theNearestInnerPoint) {
+        Point firstPoint = points.get(0);
+        if (firstPoint.equals(theNearestInnerPoint)) {
+            points.add(0, thePointToAdd);
+        } else {
+            Point lastPoint = points.get(points.size() - 1);
+            if (lastPoint.equals(theNearestInnerPoint)) {
+                points.add(thePointToAdd);
+            }
+        }
+    }
+
 }
