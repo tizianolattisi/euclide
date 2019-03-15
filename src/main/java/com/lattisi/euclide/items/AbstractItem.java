@@ -36,4 +36,12 @@ public abstract class AbstractItem implements Item {
         return Objects.hash(name);
     }
 
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + "{" +
+                "name='" + name + '\'' +
+                ",type='" + type() + '\'' +
+                '}';
+    }
+
 }
